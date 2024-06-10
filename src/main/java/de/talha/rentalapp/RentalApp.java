@@ -13,7 +13,6 @@ import de.talha.rentalapp.userinterface.Option;
 import de.talha.rentalapp.userinterface.OptionFactory;
 import de.talha.rentalapp.userinterface.Userinterface;
 import de.talha.rentalapp.userinterface.provider.CustomerProvider;
-import de.talha.rentalapp.userinterface.provider.FallbackProvider;
 import de.talha.rentalapp.userinterface.provider.PrimitiveProvider;
 import de.talha.rentalapp.userinterface.provider.VehicleProvider;
 
@@ -46,7 +45,6 @@ public class RentalApp {
         AuthService authService = new AuthService("admin", "secret");
 
         PrimitiveProvider pp = new PrimitiveProvider(ui);
-        FallbackProvider fp = new FallbackProvider(pp);
         CustomerService customerService = new CustomerService(customerStore);
         VehicleService vehicleService = new VehicleService(vehicleStore);
         RentalService rentalService = new RentalService(vehicleService);
@@ -57,7 +55,7 @@ public class RentalApp {
         customerController = new CustomerController(ui, customerService, new CustomerProvider(pp));
         rentalController = new RentalController(pp, rentalService, customerService, ui);
         reportController = new ReportController(reportService, customerService,vehicleService, ui);
-        vehicleController = new VehicleController(pp, new VehicleProvider(pp, fp), vehicleService, ui);
+        vehicleController = new VehicleController(pp, new VehicleProvider(pp), vehicleService, ui);
         adminController = new AdminController(ui, adminService);
 
         menu = new Menu(ui, pp, OptionFactory.createStartOptions());

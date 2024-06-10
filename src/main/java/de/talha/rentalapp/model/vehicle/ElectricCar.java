@@ -1,7 +1,7 @@
 package de.talha.rentalapp.model.vehicle;
 
 import de.talha.rentalapp.userinterface.Words;
-import de.talha.rentalapp.userinterface.provider.FallbackProvider;
+import de.talha.rentalapp.userinterface.provider.PrimitiveProvider;
 
 public class ElectricCar extends Vehicle {
 
@@ -17,10 +17,10 @@ public class ElectricCar extends Vehicle {
     }
 
     @Override
-    public void update(FallbackProvider p) {
+    public void update(PrimitiveProvider p) {
         super.update(p);
-        setBatteryCapacity(p.condDouble(Words.BATTERY_CAPACITY, batteryCapacity));
-        setChargingPower(p.condDouble(Words.CHARGING_POWER, chargingPower));
+        setBatteryCapacity(p.provideDouble(Words.BATTERY_CAPACITY, batteryCapacity));
+        setChargingPower(p.provideDouble(Words.CHARGING_POWER, chargingPower));
     }
 
     @Override

@@ -18,7 +18,7 @@ public class CustomerProvider {
         customer.setStreet(pp.provideString(Words.STREET));
         customer.setCity(pp.provideString(Words.CITY));
         customer.setZipcode(pp.provideString(Words.ZIPCODE));
-        customer.setCountry(pp.provideString(Words.COUNTRY));
+        customer.setCountry(pp.provideString(Words.COUNTRY, "Deutschland"));
         return customer;
     }
 }

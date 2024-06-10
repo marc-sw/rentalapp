@@ -13,7 +13,8 @@ public class Userinterface {
         scanner = new Scanner(System.in);
     }
 
-    public String provideNextLine() {
+    public String input(String message) {
+        info(message + ":");
         return scanner.nextLine();
     }
 

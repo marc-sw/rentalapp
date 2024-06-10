@@ -2,7 +2,7 @@ package de.talha.rentalapp.model.vehicle.fuel;
 
 import de.talha.rentalapp.model.vehicle.VehicleType;
 import de.talha.rentalapp.userinterface.Words;
-import de.talha.rentalapp.userinterface.provider.FallbackProvider;
+import de.talha.rentalapp.userinterface.provider.PrimitiveProvider;
 
 public class Motorcycle extends FuelVehicle {
     private BikeType bikeType;
@@ -21,10 +21,10 @@ public class Motorcycle extends FuelVehicle {
     }
 
     @Override
-    public void update(FallbackProvider p) {
+    public void update(PrimitiveProvider p) {
         super.update(p);
-        setBikeType(p.condEnum(Words.BIKE_TYPE, bikeType));
-        setBikeBoost(p.condDouble(Words.BIKE_BOOST, bikeBoost));
+        setBikeType(p.provideEnum(bikeType, Words.BIKE_TYPE));
+        setBikeBoost(p.provideDouble(Words.BIKE_BOOST, bikeBoost));
     }
 
     @Override

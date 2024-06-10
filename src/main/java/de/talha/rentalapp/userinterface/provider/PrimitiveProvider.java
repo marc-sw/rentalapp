@@ -10,75 +10,119 @@ public class PrimitiveProvider {
         this.ui = ui;
     }
 
-    public <T extends Enum<T>> T provideEnum(Class<T> cls) {
-        int i = 1;
-        StringBuilder message = new StringBuilder();
-        for (T e: cls.getEnumConstants()) {
-            if (i > 1) {
-                message.append(" ");
+    private String provideString(String message, boolean fallback, String value) {
+        if (fallback) {
+            message = "%s: %s | Beliebige Eingabe zum ändern".formatted(message, value);
+        }
+        while (true) {
+            String input = ui.input(message);
+            if (!input.isEmpty()) {
+                return input;
+            } else if (fallback) {
+                return value;
+            } else {
+                ui.error("Eingabe darf nicht leer sein");
             }
-            message.append("(%d) %s".formatted(i, e));
-            i++;
         }
-        int count = cls.getEnumConstants().length;
-        int index = provideInt(message.toString());
-        while (index < 1 || index > count) {
-            ui.info("Ungültige Eingabe, nur ganze Zahlen von 1 bis %d erlaubt".formatted(count));
-            index = provideInt(message.toString());
-        }
-        return cls.getEnumConstants()[index-1];
     }
 
     public String provideString(String message) {
-        ui.info(message + ":");
-        return ui.provideNextLine();
+        return provideString(message, false, "");
+    }
+
+    public String provideString(String message, String fallback) {
+        return provideString(message, true, fallback);
+    }
+
+    private int provideInt(String message, boolean fallback, int value) {
+        if (fallback) {
+            message = "%s: %d | Beliebige Eingabe zum ändern".formatted(message, value);
+        }
+        while (true) {
+            String input = provideString(message);
+            if (fallback && input.isEmpty()) {
+                return value;
+            }
+            try {
+                return Integer.parseInt(input);
+            } catch(NumberFormatException e) {
+                ui.error("Ungültige Eingabe, nur ganze Zahlen erlaubt");
+            }
+        }
     }
 
     public int provideInt(String message) {
-        boolean correct = false;
-        int response = 0;
-        while (!correct) {
+        return provideInt(message, false, 0);
+    }
+
+    public int provideInt(String message, int fallback) {
+        return provideInt(message, true, fallback);
+    }
+
+    private double provideDouble(String message, boolean fallback, double value) {
+        if (fallback) {
+            message = "%s: %.2f | Beliebige Eingabe zum ändern".formatted(message, value);
+        }
+        while (true) {
+            String input = ui.input(message);
+            if (fallback && input.isEmpty()) {
+                return value;
+            }
             try {
-                response = Integer.parseInt(provideString(message));
-                correct = true;
+                return Double.parseDouble(input);
             } catch(NumberFormatException e) {
-                ui.info("Ungültige Eingabe, nur ganze Zahlen erlaubt");
+                ui.error("Ungültige eingabe, nur Zahlen erlaubt");
             }
         }
-        return response;
     }
 
     public double provideDouble(String message) {
-        boolean correct = false;
-        double response = 0;
-        while (!correct) {
-            try {
-                response = Double.parseDouble(provideString(message));
-                correct = true;
-            } catch(NumberFormatException e) {
-                ui.info("Ungültige eingabe, nur Zahlen erlaubt");
-            }
-        }
-        return response;
+        return provideDouble(message, false, 0);
     }
 
-    /*
-    public boolean provideBoolean(String message) {
-        boolean correct = false;
-        boolean response = false;
-        while (!correct) {
+    public double provideDouble(String message, double fallback) {
+        return provideDouble(message, true, fallback);
+    }
+
+    private <T extends Enum<T>> T provideEnum(Class<T> cls, String message, boolean fallback, T value) {
+        int i = 1;
+        StringBuilder builder = new StringBuilder();
+        for (T e: cls.getEnumConstants()) {
+            if (i > 1) {
+                builder.append(" ");
+            }
+            builder.append("(%d) %s".formatted(i, e));
+            i++;
+        }
+        String options = builder.toString();
+        if (fallback) {
+            message = "%s: %s | Beliebige Eingabe zum ändern".formatted(message, value.toString());
+        }
+        int count = cls.getEnumConstants().length;
+        while (true) {
+            ui.info(options);
+            String input = ui.input(message);
+            if (fallback && input.isEmpty()) {
+                return value;
+            }
             try {
-                int n = provideInt(message + "? (1) Ja (2) Nein");
-                if (n == 1 || n == 2) {
-                    response = n == 1;
-                    correct = true;
+                int index = Integer.parseInt(input);
+                if (index > 0 && index <= count) {
+                    return cls.getEnumConstants()[index - 1];
                 } else {
-                    ui.info("Ungültige Eingabe, nur 1 oder 2 erlaubt");
+                    ui.error("Ungültige Eingabe, nur ganze Zahlen von 1 bis %d erlaubt".formatted(count));
                 }
-            } catch(NumberFormatException e) {
-                ui.info("Ungültige Eingabe, nur 1 oder 2 erlaubt");
+            } catch (NumberFormatException e) {
+                ui.error("Ungültige Eingabe, nur ganze Zahlen erlaubt");
             }
         }
-        return response;
-    }*/
+    }
+
+    public <T extends Enum<T>> T provideEnum(Class<T> cls, String message) {
+        return provideEnum(cls, message, false, null);
+    }
+
+    public <T extends Enum<T>> T provideEnum(T fallback, String message) {
+        return provideEnum(fallback.getDeclaringClass(), message,true, fallback);
+    }
 }

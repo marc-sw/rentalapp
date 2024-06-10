@@ -2,7 +2,7 @@ package de.talha.rentalapp.model.vehicle.fuel;
 
 import de.talha.rentalapp.model.vehicle.Vehicle;
 import de.talha.rentalapp.userinterface.Words;
-import de.talha.rentalapp.userinterface.provider.FallbackProvider;
+import de.talha.rentalapp.userinterface.provider.PrimitiveProvider;
 
 public abstract class FuelVehicle extends Vehicle {
 
@@ -18,10 +18,10 @@ public abstract class FuelVehicle extends Vehicle {
     }
 
     @Override
-    public void update(FallbackProvider p) {
+    public void update(PrimitiveProvider p) {
         super.update(p);
-        setCountCylinders(p.condInt(Words.COUNT_CYLINDERS, countCylinders));
-        setFuelType(p.condEnum(Words.FUEL_TYPE, fuelType));
+        setCountCylinders(p.provideInt(Words.COUNT_CYLINDERS, countCylinders));
+        setFuelType(p.provideEnum(fuelType, Words.FUEL_TYPE));
     }
 
     @Override

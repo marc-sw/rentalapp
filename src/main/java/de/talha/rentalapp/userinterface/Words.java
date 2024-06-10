@@ -27,6 +27,8 @@ public class Words {
     public static final String BIKE_TYPE = "Motorradart";
     public static final String BIKE_BOOST = "Motorradbeschleunigung";
 
+    public static final String VEHICLE_SORT_TYPE = "Fahrzeugsortierung";
+    public static final String VEHICLE_TYPE =  "Fahrzeugart";
     public static final String ELECTRIC_CAR = "Elektroauto";
     public static final String CAR = "Auto";
     public static final String MOTORCYCLE = "Motorrad";

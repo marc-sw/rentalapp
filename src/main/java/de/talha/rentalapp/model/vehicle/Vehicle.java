@@ -2,7 +2,7 @@ package de.talha.rentalapp.model.vehicle;
 
 import de.talha.rentalapp.model.Rentable;
 import de.talha.rentalapp.userinterface.Words;
-import de.talha.rentalapp.userinterface.provider.FallbackProvider;
+import de.talha.rentalapp.userinterface.provider.PrimitiveProvider;
 
 public abstract class Vehicle extends Rentable {
     private String vin;
@@ -81,14 +81,14 @@ public abstract class Vehicle extends Rentable {
     }
 
     @Override
-    public void update(FallbackProvider p) {
+    public void update(PrimitiveProvider p) {
         super.update(p);
-        setVin(p.condString(Words.VIN, vin));
-        setLicensePlate(p.condString(Words.LICENSE_PLATE, licensePlate));
-        setMileage(p.condDouble(Words.MILEAGE, mileage));
-        setPower(p.condInt(Words.POWER, power));
-        setManufacturer(p.condString(Words.MANUFACTURER, manufacturer));
-        setModel(p.condString(Words.MODEL, manufacturer));
+        setVin(p.provideString(Words.VIN, vin));
+        setLicensePlate(p.provideString(Words.LICENSE_PLATE, licensePlate));
+        setMileage(p.provideDouble(Words.MILEAGE, mileage));
+        setPower(p.provideInt(Words.POWER, power));
+        setManufacturer(p.provideString(Words.MANUFACTURER, manufacturer));
+        setModel(p.provideString(Words.MODEL, manufacturer));
     }
 
     @Override

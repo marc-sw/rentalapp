@@ -5,7 +5,7 @@ import de.talha.rentalapp.abstraction.SimpleDisplayable;
 import de.talha.rentalapp.abstraction.Storable;
 import de.talha.rentalapp.abstraction.Updatable;
 import de.talha.rentalapp.userinterface.*;
-import de.talha.rentalapp.userinterface.provider.FallbackProvider;
+import de.talha.rentalapp.userinterface.provider.PrimitiveProvider;
 
 public abstract class Rentable implements Storable, Displayable, SimpleDisplayable, Updatable, Cloneable {
     private int id;
@@ -77,9 +77,9 @@ public abstract class Rentable implements Storable, Displayable, SimpleDisplayab
     }
 
     @Override
-    public void update(FallbackProvider p) {
-        setDescription(p.condString(Words.DESCRIPTION, description));
-        setValue(p.condDouble(Words.VALUE, value));
+    public void update(PrimitiveProvider p) {
+        setDescription(p.provideString(Words.DESCRIPTION, description));
+        setValue(p.provideDouble(Words.VALUE, value));
     }
 
     @Override

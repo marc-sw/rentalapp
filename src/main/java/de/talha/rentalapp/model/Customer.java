@@ -2,9 +2,11 @@ package de.talha.rentalapp.model;
 
 import de.talha.rentalapp.abstraction.Storable;
 import de.talha.rentalapp.abstraction.Displayable;
+import de.talha.rentalapp.abstraction.Updatable;
 import de.talha.rentalapp.userinterface.Words;
+import de.talha.rentalapp.userinterface.provider.PrimitiveProvider;
 
-public class Customer implements Storable, Displayable, Cloneable {
+public class Customer implements Storable, Displayable, Cloneable, Updatable {
     private int id;
     private String name;
     private String email;
@@ -66,5 +68,10 @@ public class Customer implements Storable, Displayable, Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    public void update(PrimitiveProvider p) {
+        setName(p.provideString(Words.NAME, name));
     }
 }

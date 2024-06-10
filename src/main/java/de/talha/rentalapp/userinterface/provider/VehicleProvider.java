@@ -9,11 +9,9 @@ import de.talha.rentalapp.userinterface.Words;
 public class VehicleProvider {
 
     private final PrimitiveProvider pp;
-    private final FallbackProvider fp;
 
-    public VehicleProvider(PrimitiveProvider pp, FallbackProvider fp) {
+    public VehicleProvider(PrimitiveProvider pp) {
         this.pp = pp;
-        this.fp = fp;
     }
 
     private void createVehicleData(Vehicle vehicle) {
@@ -32,7 +30,7 @@ public class VehicleProvider {
     private void createFuelVehicleData(FuelVehicle fuelVehicle) {
         createVehicleData(fuelVehicle);
         fuelVehicle.setCountCylinders(pp.provideInt(Words.COUNT_CYLINDERS));
-        fuelVehicle.setFuelType(pp.provideEnum(FuelType.class));
+        fuelVehicle.setFuelType(pp.provideEnum(FuelType.BENZIN, Words.FUEL_TYPE));
     }
 
     private Car createCar() {
@@ -53,12 +51,12 @@ public class VehicleProvider {
         Motorcycle motorcycle = new Motorcycle();
         createFuelVehicleData(motorcycle);
         motorcycle.setBikeBoost(pp.provideDouble(Words.BIKE_BOOST));
-        motorcycle.setBikeType(pp.provideEnum(BikeType.class));
+        motorcycle.setBikeType(pp.provideEnum(BikeType.class, Words.BIKE_TYPE));
         return motorcycle;
     }
 
     public Vehicle create() {
-        VehicleType type = pp.provideEnum(VehicleType.class);
+        VehicleType type = pp.provideEnum(VehicleType.CAR, Words.VEHICLE_TYPE);
         return switch (type) {
             case CAR -> createCar();
             case ELECTRIC_CAR -> createElectricCar();
@@ -68,9 +66,9 @@ public class VehicleProvider {
 
     public void update(Vehicle vehicle) {
         switch (vehicle) {
-            case Car car -> car.update(fp);
-            case Motorcycle motorcycle -> motorcycle.update(fp);
-            case ElectricCar electricCar -> electricCar.update(fp);
+            case Car car -> car.update(pp);
+            case Motorcycle motorcycle -> motorcycle.update(pp);
+            case ElectricCar electricCar -> electricCar.update(pp);
             default -> throw new RuntimeException("vehicle child class unknown");
         }
     }

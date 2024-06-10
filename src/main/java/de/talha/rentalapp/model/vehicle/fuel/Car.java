@@ -3,12 +3,12 @@ package de.talha.rentalapp.model.vehicle.fuel;
 
 import de.talha.rentalapp.model.vehicle.VehicleType;
 import de.talha.rentalapp.userinterface.Words;
-import de.talha.rentalapp.userinterface.provider.FallbackProvider;
+import de.talha.rentalapp.userinterface.provider.PrimitiveProvider;
 
 public class Car extends FuelVehicle {
 
     @Override
-    public void update(FallbackProvider p) {
+    public void update(PrimitiveProvider p) {
         super.update(p);
     }
 

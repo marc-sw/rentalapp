@@ -62,7 +62,7 @@ public class VehicleController {
     }
 
     public void displayAll() {
-        VehicleSortType sortType = primitiveProvider.provideEnum(VehicleSortType.class);
+        VehicleSortType sortType = primitiveProvider.provideEnum(VehicleSortType.class, Words.VEHICLE_SORT_TYPE);
         vehicleService.getAllSorted(sortType).forEach(ui::displaySimple);
     }
 

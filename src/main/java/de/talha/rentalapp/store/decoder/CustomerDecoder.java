@@ -9,6 +9,7 @@ public class CustomerDecoder implements Decoder<Customer> {
     public Customer decode(String data) {
         String[] attributes = data.split(",");
         if (attributes.length != 7) {
+            System.out.println(attributes.length);
             throw new IllegalArgumentException("Fehlerhafte %s Informationen".formatted(Words.CUSTOMER));
         }
         Customer customer = new Customer();

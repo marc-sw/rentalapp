@@ -1,7 +1,7 @@
 package de.talha.rentalapp.abstraction;
 
-import de.talha.rentalapp.userinterface.provider.FallbackProvider;
+import de.talha.rentalapp.userinterface.provider.PrimitiveProvider;
 
 public interface Updatable {
-    void update(FallbackProvider fallbackProvider);
+    void update(PrimitiveProvider primitiveProvider);
 }
