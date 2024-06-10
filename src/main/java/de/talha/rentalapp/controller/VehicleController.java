@@ -43,6 +43,7 @@ public class VehicleController {
             Vehicle vehicle = (Vehicle) vehicleService.getById(id).clone();
             vehicleProvider.update(vehicle);
             vehicleService.update(vehicle);
+            ui.info("Fahrzeug wurde geändert");
         } catch (EntityNotFound e) {
             ui.error(e.getMessage());
         } catch (CloneNotSupportedException e) {
@@ -62,14 +63,14 @@ public class VehicleController {
 
     public void displayAll() {
         VehicleSortType sortType = primitiveProvider.provideEnum(VehicleSortType.class);
-        vehicleService.getAllSorted(sortType).forEach(ui::display);
+        vehicleService.getAllSorted(sortType).forEach(ui::displaySimple);
     }
 
     public void displayByLicensePlate() {
         String licensePlate = primitiveProvider.provideString(Words.LICENSE_PLATE);
         try {
             Vehicle vehicle = vehicleService.getByLicensePlate(licensePlate);
-            ui.info(vehicle.display());
+            ui.display(vehicle);
         } catch (LicensePlateNotFoundException e) {
             ui.error(e.getMessage());
         }
@@ -77,10 +78,10 @@ public class VehicleController {
 
     public void displayByManufacturer() {
         String manufacturer = primitiveProvider.provideString(Words.MANUFACTURER);
-        vehicleService.getByManufacturer(manufacturer).forEach(v -> ui.info(v.displaySimple()));
+        vehicleService.getByManufacturer(manufacturer).forEach(ui::displaySimple);
     }
 
     public void displayCruiser() {
-        vehicleService.getByBikeType(BikeType.CRUISER).forEach(v -> ui.info(v.displaySimple()));
+        vehicleService.getByBikeType(BikeType.CRUISER).forEach(ui::displaySimple);
     }
 }

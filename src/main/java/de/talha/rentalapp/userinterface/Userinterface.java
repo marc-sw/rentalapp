@@ -1,6 +1,7 @@
 package de.talha.rentalapp.userinterface;
 
 import de.talha.rentalapp.abstraction.Displayable;
+import de.talha.rentalapp.abstraction.SimpleDisplayable;
 
 import java.util.Scanner;
 
@@ -26,6 +27,10 @@ public class Userinterface {
 
     public void display(Displayable displayable) {
         info(displayable.display());
+    }
+
+    public void displaySimple(SimpleDisplayable simpleDisplayable) {
+        info(simpleDisplayable.displaySimple());
     }
 
     public void title(String title) {

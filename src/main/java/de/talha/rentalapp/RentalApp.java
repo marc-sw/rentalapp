@@ -101,8 +101,9 @@ public class RentalApp {
         running = true;
         while (running) {
             menu.display();
-            menu.provideDecision().call(this);
-
+            Option option = menu.provideDecision();
+            ui.info(option.getTitle());
+            option.call(this);
         }
     }
 }
