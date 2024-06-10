@@ -62,6 +62,7 @@ public class PrimitiveProvider {
         return response;
     }
 
+    /*
     public boolean provideBoolean(String message) {
         boolean correct = false;
         boolean response = false;
@@ -79,5 +80,5 @@ public class PrimitiveProvider {
             }
         }
         return response;
-    }
+    }*/
 }
