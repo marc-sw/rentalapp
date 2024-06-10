@@ -1,6 +1,7 @@
 package de.talha.rentalapp.controller;
 
 import de.talha.rentalapp.exception.EntityNotFound;
+import de.talha.rentalapp.exception.LicensePlateNotFoundException;
 import de.talha.rentalapp.exception.LicensePlateTakenException;
 import de.talha.rentalapp.exception.VehicleRentedException;
 import de.talha.rentalapp.model.VehicleSortType;
@@ -69,7 +70,7 @@ public class VehicleController {
         try {
             Vehicle vehicle = vehicleService.getByLicensePlate(licensePlate);
             ui.info(vehicle.display());
-        } catch (LicensePlateTakenException e) {
+        } catch (LicensePlateNotFoundException e) {
             ui.error(e.getMessage());
         }
     }

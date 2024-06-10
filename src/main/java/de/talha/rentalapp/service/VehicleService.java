@@ -5,6 +5,7 @@ import de.talha.rentalapp.comparator.MileageComparator;
 import de.talha.rentalapp.comparator.PowerComparator;
 import de.talha.rentalapp.comparator.ValueComparator;
 import de.talha.rentalapp.exception.EntityNotFound;
+import de.talha.rentalapp.exception.LicensePlateNotFoundException;
 import de.talha.rentalapp.exception.LicensePlateTakenException;
 import de.talha.rentalapp.exception.VehicleRentedException;
 import de.talha.rentalapp.model.VehicleSortType;
@@ -29,10 +30,10 @@ public class VehicleService {
         return vehicleStore.getById(id);
     }
 
-    public Vehicle getByLicensePlate(String licensePlate) throws LicensePlateTakenException {
+    public Vehicle getByLicensePlate(String licensePlate) throws LicensePlateNotFoundException {
         Optional<Vehicle> vehicle = vehicleStore.getAll().stream().filter(v -> v.getLicensePlate().equals(licensePlate)).findFirst();
         if (vehicle.isEmpty()) {
-            throw new LicensePlateTakenException();
+            throw new LicensePlateNotFoundException();
         }
         return vehicle.get();
     }
@@ -46,8 +47,12 @@ public class VehicleService {
     }
 
     public void create(Vehicle vehicle) throws LicensePlateTakenException {
-        getByLicensePlate(vehicle.getLicensePlate());
-        vehicleStore.create(vehicle);
+        try {
+            getByLicensePlate(vehicle.getLicensePlate());
+            throw new LicensePlateTakenException();
+        } catch (LicensePlateNotFoundException e) {
+            vehicleStore.create(vehicle);
+        }
     }
 
     public List<Vehicle> getAllSorted(VehicleSortType sortType) {
