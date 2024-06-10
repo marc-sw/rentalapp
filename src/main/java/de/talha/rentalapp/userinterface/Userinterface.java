@@ -33,12 +33,4 @@ public class Userinterface {
     public void displaySimple(SimpleDisplayable simpleDisplayable) {
         info(simpleDisplayable.displaySimple());
     }
-
-    public void title(String title) {
-        StringBuilder line = new StringBuilder();
-        line.append("-".repeat(title.length()));
-        info(line.toString());
-        info(title);
-        info(line.toString());
-    }
 }

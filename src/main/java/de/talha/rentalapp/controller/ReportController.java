@@ -22,7 +22,6 @@ public class ReportController {
 
     public void displayStatistics() {
         Statistics statistics = reportService.getStatistics();
-        ui.title("Report aktueller Informationen");
         ui.info("Anzahl vemieteter Fahrzeuge: " + statistics.rentedVehicles());
         ui.info("Anzahl normaler Autos: " + statistics.carCount());
         ui.info("Anzahl E-Autos: " + statistics.ecarCount());
