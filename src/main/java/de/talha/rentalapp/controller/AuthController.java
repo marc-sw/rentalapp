@@ -1,6 +1,8 @@
 package de.talha.rentalapp.controller;
 
+import de.talha.rentalapp.exception.AlreadyAuthorizedException;
 import de.talha.rentalapp.exception.InvalidCredentialsException;
+import de.talha.rentalapp.exception.UnauthorizedException;
 import de.talha.rentalapp.service.AuthService;
 import de.talha.rentalapp.userinterface.Userinterface;
 import de.talha.rentalapp.userinterface.Words;
@@ -24,13 +26,17 @@ public class AuthController {
         try {
             authService.authorize(username, password);
             ui.info("Admin Rechte hinzugefügt");
-        } catch (InvalidCredentialsException e) {
+        } catch (InvalidCredentialsException | AlreadyAuthorizedException e) {
             ui.error(e.getMessage());
         }
     }
 
     public void checkout() {
-        authService.checkout();
-        ui.info("Admin Rechte entzogen");
+        try {
+            authService.checkout();
+            ui.info("Admin Rechte entzogen");
+        } catch (UnauthorizedException e) {
+            ui.error(e.getMessage());
+        }
     }
 }

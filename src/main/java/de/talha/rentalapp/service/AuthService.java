@@ -1,6 +1,8 @@
 package de.talha.rentalapp.service;
 
+import de.talha.rentalapp.exception.AlreadyAuthorizedException;
 import de.talha.rentalapp.exception.InvalidCredentialsException;
+import de.talha.rentalapp.exception.UnauthorizedException;
 
 public class AuthService {
 
@@ -13,14 +15,20 @@ public class AuthService {
         this.adminPassword = adminPassword;
     }
 
-    public void authorize(String username, String password) throws InvalidCredentialsException {
+    public void authorize(String username, String password) throws InvalidCredentialsException, AlreadyAuthorizedException {
+        if (hasAdminAccess()) {
+            throw new AlreadyAuthorizedException();
+        }
         if (!username.equals(adminUsername) || !password.equals(adminPassword)) {
             throw new InvalidCredentialsException();
         }
         adminAccess = true;
     }
 
-    public void checkout() {
+    public void checkout() throws UnauthorizedException {
+        if (!hasAdminAccess()) {
+            throw new UnauthorizedException();
+        }
         adminAccess = false;
     }
 
