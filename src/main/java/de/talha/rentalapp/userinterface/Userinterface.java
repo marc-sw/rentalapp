@@ -37,8 +37,8 @@ public class Userinterface {
     public void title(String title) {
         StringBuilder line = new StringBuilder();
         line.append("-".repeat(title.length()));
-        System.out.println(line);
+        info(line.toString());
         info(title);
-        System.out.println(line);
+        info(line.toString());
     }
 }
