@@ -30,9 +30,7 @@ public class Userinterface {
 
     public void title(String title) {
         StringBuilder line = new StringBuilder();
-        for (int i = 0; i < title.length(); i++) {
-            line.append('-');
-        }
+        line.append("-".repeat(title.length()));
         System.out.println(line);
         info(title);
         System.out.println(line);

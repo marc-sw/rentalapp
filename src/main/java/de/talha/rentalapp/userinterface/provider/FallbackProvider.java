@@ -29,13 +29,13 @@ public class FallbackProvider {
         return value;
     }
 
-    public boolean condBoolean(String field, boolean value) {
+    /*public boolean condBoolean(String field, boolean value) {
         String text = value ? "Ja": "Nein";
         if (!pp.provideString("%s: %s | Beliebige Eingabe zum ändern".formatted(field, text)).isEmpty()) {
             return pp.provideBoolean(field);
         }
         return value;
-    }
+    }*/
 
     public <T extends Enum<T>> T condEnum(String field, T value) {
         if (!pp.provideString("%s: %s | Beliebige Eingabe zum ändern".formatted(field, value)).isEmpty()) {

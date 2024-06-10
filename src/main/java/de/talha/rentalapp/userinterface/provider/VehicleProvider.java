@@ -67,14 +67,11 @@ public class VehicleProvider {
     }
 
     public void update(Vehicle vehicle) {
-        if (vehicle instanceof Car car) {
-            car.update(fp);
-        } else if (vehicle instanceof Motorcycle motorcycle) {
-            motorcycle.update(fp);
-        } else if (vehicle instanceof ElectricCar electricCar){
-            electricCar.update(fp);
-        } else {
-            throw new RuntimeException("vehicle child class unknown");
+        switch (vehicle) {
+            case Car car -> car.update(fp);
+            case Motorcycle motorcycle -> motorcycle.update(fp);
+            case ElectricCar electricCar -> electricCar.update(fp);
+            default -> throw new RuntimeException("vehicle child class unknown");
         }
     }
 }

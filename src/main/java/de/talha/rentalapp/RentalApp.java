@@ -25,7 +25,6 @@ public class RentalApp {
 
     private final Menu menu;
     private final Userinterface ui;
-    private final PrimitiveProvider pp;
 
     private final AdminController adminController;
     private final AuthController authController;
@@ -46,7 +45,7 @@ public class RentalApp {
         ui = new Userinterface();
         AuthService authService = new AuthService("admin", "secret");
 
-        pp = new PrimitiveProvider(ui);
+        PrimitiveProvider pp = new PrimitiveProvider(ui);
         FallbackProvider fp = new FallbackProvider(pp);
         CustomerService customerService = new CustomerService(customerStore);
         VehicleService vehicleService = new VehicleService(vehicleStore);
