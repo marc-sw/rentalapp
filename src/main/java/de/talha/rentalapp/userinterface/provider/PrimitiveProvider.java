@@ -39,7 +39,7 @@ public class PrimitiveProvider {
             message = "%s: %d | Beliebige Eingabe zum ändern".formatted(message, value);
         }
         while (true) {
-            String input = provideString(message);
+            String input = ui.input(message);
             if (fallback && input.isEmpty()) {
                 return value;
             }
