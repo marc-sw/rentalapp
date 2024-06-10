@@ -18,6 +18,10 @@ public class CustomerService {
         customerStore.create(customer);
     }
 
+    public void update(Customer customer) throws EntityNotFound {
+        customerStore.update(customer);
+    }
+
     public List<Customer> getAll() {
         return customerStore.getAll();
     }

@@ -52,7 +52,7 @@ public class RentalApp {
         AdminService adminService = new AdminService(authService, customerStore, vehicleStore);
 
         authController = new AuthController(pp, authService, ui);
-        customerController = new CustomerController(ui, customerService, new CustomerProvider(pp));
+        customerController = new CustomerController(ui, customerService, new CustomerProvider(pp), pp);
         rentalController = new RentalController(pp, rentalService, customerService, ui);
         reportController = new ReportController(reportService, customerService,vehicleService, ui);
         vehicleController = new VehicleController(pp, new VehicleProvider(pp), vehicleService, ui);

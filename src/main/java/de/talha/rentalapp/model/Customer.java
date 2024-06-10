@@ -73,5 +73,10 @@ public class Customer implements Storable, Displayable, Cloneable, Updatable {
     @Override
     public void update(PrimitiveProvider p) {
         setName(p.provideString(Words.NAME, name));
+        setEmail(p.provideString(Words.EMAIL, email));
+        setStreet(p.provideString(Words.STREET, street));
+        setCity(p.provideString(Words.CITY, city));
+        setZipcode(p.provideString(Words.ZIPCODE, zipcode));
+        setCountry(p.provideString(Words.COUNTRY, country));
     }
 }

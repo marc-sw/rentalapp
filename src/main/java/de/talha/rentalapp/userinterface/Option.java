@@ -5,6 +5,7 @@ import de.talha.rentalapp.abstraction.Callable;
 
 public enum Option implements Callable {
     CUSTOMER_CREATE("Kunde erstellen", app -> app.getCustomerController().create()),
+    CUSTOMER_UPDATE("Kunde bearbeiten", app -> app.getCustomerController().update()),
     CUSTOMER_LIST("Kunden anzeigen", app -> app.getCustomerController().displayAll()),
     VEHICLE_CREATE("Fahrzeug erstellen", app -> app.getVehicleController().create()),
     VEHICLE_LIST("Fahrzeuge anzeigen", app -> app.getVehicleController().displayAll()),

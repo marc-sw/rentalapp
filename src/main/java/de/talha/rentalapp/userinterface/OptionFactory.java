@@ -27,6 +27,7 @@ public class OptionFactory {
     public static List<Option> createCustomerOptions() {
         List<Option> options = new ArrayList<>();
         options.add(Option.CUSTOMER_CREATE);
+        options.add(Option.CUSTOMER_UPDATE);
         options.add(Option.CUSTOMER_LIST);
         options.add(Option.BACK);
         return options;

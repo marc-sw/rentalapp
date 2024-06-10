@@ -43,7 +43,7 @@ public class VehicleController {
             Vehicle vehicle = (Vehicle) vehicleService.getById(id).clone();
             vehicleProvider.update(vehicle);
             vehicleService.update(vehicle);
-            ui.info("Fahrzeug wurde geändert");
+            ui.info("Fahrzeug wurde bearbeitet");
         } catch (EntityNotFound e) {
             ui.error(e.getMessage());
         } catch (CloneNotSupportedException e) {
