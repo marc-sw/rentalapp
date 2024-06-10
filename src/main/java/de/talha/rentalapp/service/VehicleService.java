@@ -67,6 +67,10 @@ public class VehicleService {
         return vehicles;
     }
 
+    public boolean isRenting(int customerId) {
+        return vehicleStore.getAll().stream().anyMatch(v -> v.getCustomer().getId() == customerId);
+    }
+
     public List<Vehicle> getAll() {
         return vehicleStore.getAll();
     }

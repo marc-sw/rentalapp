@@ -1,5 +1,6 @@
 package de.talha.rentalapp.controller;
 
+import de.talha.rentalapp.exception.CustomerRentException;
 import de.talha.rentalapp.exception.EntityNotFound;
 import de.talha.rentalapp.model.Customer;
 import de.talha.rentalapp.service.CustomerService;
@@ -39,6 +40,15 @@ public class CustomerController {
             ui.error(e.getMessage());
         } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void delete() {
+        int id = primitiveProvider.provideInt(Words.ID);
+        try {
+            customerService.delete(id);
+        } catch (EntityNotFound | CustomerRentException e) {
+            ui.error(e.getMessage());
         }
     }
 

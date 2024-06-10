@@ -3,45 +3,24 @@ package de.talha.rentalapp.userinterface;
 import de.talha.rentalapp.RentalApp;
 import de.talha.rentalapp.abstraction.Callable;
 
-public enum Option implements Callable {
-    CUSTOMER_CREATE("Kunde erstellen", app -> app.getCustomerController().create()),
-    CUSTOMER_UPDATE("Kunde bearbeiten", app -> app.getCustomerController().update()),
-    CUSTOMER_LIST("Kunden anzeigen", app -> app.getCustomerController().displayAll()),
-    VEHICLE_CREATE("Fahrzeug erstellen", app -> app.getVehicleController().create()),
-    VEHICLE_LIST("Fahrzeuge anzeigen", app -> app.getVehicleController().displayAll()),
-    VEHICLE_UPDATE("Fahrzeug ändern", app -> app.getVehicleController().update()),
-    VEHICLE_LICENSE_PLATE("Fahrzeug mit Nummernschild anzeigen", app -> app.getVehicleController().displayByLicensePlate()),
-    VEHICLES_MANUFCATURER("Fahrzeuge nach Hersteller gefiltert anzeigen", app -> app.getVehicleController().displayByManufacturer()),
-    VEHICLE_CRUISER("Motorräder der Art Cruiser anzeigen", app -> app.getVehicleController().displayCruiser()),
-    VEHICLE_DELETE("Fahrzeug löschen", app -> app.getVehicleController().delete()),
-    RENTAL_RENT("Ausleihe starten", app -> app.getRentalController().rentVehicle()),
-    RENTAL_RETURN("Ausleihe beenden", app -> app.getRentalController().returnVehicle()),
-    REPORT_STATISTICS("Statistik anzeigen", app -> app.getReportController().displayStatistics()),
-    REPORT_VEHICLES("Fahrzeuge detailliert anzeigen", app -> app.getReportController().displayVehicles()),
-    REPORT_CUSTOMERS("Kunden detailliert anzeigen", app -> app.getReportController().displayCustomers()),
-    AUTH_AUTHORIZE("Anmelden", app -> app.getAuthController().authorize()),
-    AUTH_CHECKOUT("Abmelden", app -> app.getAuthController().checkout()),
-    ADMIN_RESET("System zurücksetzen", app -> app.getAdminController().reset()),
-    QUIT("Anwendung beenden", RentalApp::quit),
+public class Option implements Callable {
 
-    BACK("Zurück", app -> app.setMenueOptions(Menu.START)),
-    ADMIN_MENU("Admin Menü", app -> app.setMenueOptions(Menu.ADMIN)),
-    CUSTOMER_MENU("Kunden Menü", app -> app.setMenueOptions(Menu.CUSTOMER)),
-    RENTAL_MENU("Ausleihe Menü", app -> app.setMenueOptions(Menu.RENTAL)),
-    REPORT_MENU("Report Menü", app -> app.setMenueOptions(Menu.REPORT)),
-    VEHICLE_MENU("Fahrzeug Menü", app -> app.setMenueOptions(Menu.VEHICLE))
-    ;
-
-    private final String title;
+    private final String name;
+    private final String description;
     private final Callable callable;
 
-    Option(String title, Callable callable) {
-        this.title = title;
+    public Option(String name, String description, Callable callable) {
+        this.name = name;
+        this.description = description;
         this.callable = callable;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     @Override

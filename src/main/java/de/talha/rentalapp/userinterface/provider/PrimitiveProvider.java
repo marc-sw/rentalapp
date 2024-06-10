@@ -59,6 +59,16 @@ public class PrimitiveProvider {
         return provideInt(message, true, fallback);
     }
 
+    public int provideInt(String message, int min, int max) {
+        while (true) {
+            int value = provideInt(message);
+            if (value >= min && value <= max) {
+                return value;
+            }
+            ui.error("Ungültige Eingabe, ganze Zahlen von %d bis %d erlaubt".formatted(min, max));
+        }
+    }
+
     private double provideDouble(String message, boolean fallback, double value) {
         if (fallback) {
             message = "%s: %.2f | Beliebige Eingabe zum ändern".formatted(message, value);
